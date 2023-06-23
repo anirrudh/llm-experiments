@@ -33,8 +33,7 @@
             else if pkgs.system == "*-darwin"
             then
               with pkgs; [
-
-	        llama-cpp
+                llama-cpp
                 openai-whisper-cpp
                 (python3.withPackages (p: [p.numpy p.pydantic p.torch p.rich p.ipython p.psutil]))
               ]
