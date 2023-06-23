@@ -3,11 +3,13 @@
 
   inputs.devshell.url = "github:numtide/devshell";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.llama-cpp.url = "github:ggerganov/llama.cpp";
 
   outputs = {
     self,
     flake-utils,
     devshell,
+    llama-cpp,
     nixpkgs,
   }:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -31,6 +33,8 @@
             else if pkgs.system == "*-darwin"
             then
               with pkgs; [
+
+	        llama-cpp
                 openai-whisper-cpp
                 (python3.withPackages (p: [p.numpy p.pydantic p.torch p.rich p.ipython p.psutil]))
               ]
