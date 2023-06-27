@@ -17,10 +17,6 @@
         pkgs = import nixpkgs {
           inherit system;
           config = {allowUnfree = true;};
-          inputsFrom =
-            if pkgs.system == "*-darwin"
-            then [llama-cpp.devShells.${system}.default]
-            else [];
           overlays = [devshell.overlays.default];
         };
 
