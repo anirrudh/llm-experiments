@@ -61,11 +61,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1687509481,
-        "narHash": "sha256-R1xakdYtU2XTprV8w9yLovpawXfFzcmTt3ZW0MF9rZA=",
+        "lastModified": 1687842433,
+        "narHash": "sha256-P9vBh+LMo4YP/u912D5Ez9T3guGfO8qb7+4hgvWyuN4=",
         "owner": "ggerganov",
         "repo": "llama.cpp",
-        "rev": "d7b7484f74d486f77feb4c0b7af7e1718ed91651",
+        "rev": "0be54f75a6c3e9a09ea71bdfcdabf9a996a0549b",
         "type": "github"
       },
       "original": {

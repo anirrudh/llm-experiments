@@ -8,8 +8,8 @@
   outputs = {
     self,
     flake-utils,
-    devshell,
     llama-cpp,
+    devshell,
     nixpkgs,
   }:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -30,7 +30,6 @@
           imports = [(pkgs.devshell.importTOML ./devshell.toml)];
 
           devshell.packages =
-
             if pkgs.system == "*-linux"
             then
               with pkgs; [
@@ -41,6 +40,7 @@
             then
               with pkgs;
                 [
+                  llama-cpp.outputs.packages.${system}.default
                   openai-whisper-cpp
                 ]
                 ++ llm_python_env
@@ -50,20 +50,39 @@
 
           commands = [
             {
+              name = "llama";
+              category = "llama.cpp";
+              help = "A port of Facebook's LLaMa Model to C++.";
+              command = "${llama-cpp.outputs.packages.${system}.default}/bin/llama";
+            }
+            {
+              name = "llama-server";
+              category = "llama.cpp";
+              help = "A port of Facebook's LLaMa Model to C++.";
+              command = "${llama-cpp.outputs.packages.${system}.default}/bin/llama-server";
+            }
+            {
+              name = "llama-embedding";
+              category = "llama.cpp";
+              help = "A port of Facebook's LLaMa Model to C++.";
+              command = "${llama-cpp.outputs.packages.${system}.default}/bin/embedding";
+            }
+
+            {
               name = "whisper";
-              category = "Speech to Text | whisper.cpp";
-              help = "A port of openAI whisper model to C++. [whisper-cpp]";
+              category = "whisper.cpp";
+              help = "A port of OpenAI whisper model to C++. [whisper-cpp]";
               command = "${pkgs.openai-whisper-cpp}/bin/whisper-cpp";
             }
             {
               name = "whisper-stream";
-              category = "Speech to Text | whisper.cpp";
+              category = "whisper.cpp";
               help = "Use whisper in real-time. [whisper-cpp-stream]";
               command = "${pkgs.openai-whisper-cpp}/bin/whisper-cpp-stream";
             }
             {
               name = "whisper-download";
-              category = "Speech to Text | whisper.cpp";
+              category = "whisper.cpp";
               help = "Download ggml models for whisper. [whisper-cpp-download]";
               command = "${pkgs.openai-whisper-cpp}/bin/whisper-cpp-download-ggml-model";
             }
