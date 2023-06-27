@@ -54,16 +54,15 @@
             {
               name = "llama-server";
               category = "llama.cpp";
-              help = "A port of Facebook's LLaMa Model to C++.";
+              help = "Runs a server instance of a llama based model.";
               command = "${llama-cpp.outputs.packages.${system}.default}/bin/llama-server";
             }
             {
               name = "llama-embedding";
               category = "llama.cpp";
-              help = "A port of Facebook's LLaMa Model to C++.";
+              help = "Runs an embedded instance of llama?";
               command = "${llama-cpp.outputs.packages.${system}.default}/bin/embedding";
             }
-
             {
               name = "whisper";
               category = "whisper.cpp";
