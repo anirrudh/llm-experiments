@@ -1,5 +1,5 @@
 {
-  description = "virtual environments";
+  description = "A development environment for messing around with ML models.";
 
   inputs.devshell.url = "github:numtide/devshell";
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -64,7 +64,7 @@
               command = "${llama-cpp.outputs.packages.${system}.default}/bin/embedding";
             }
             {
-              name = "whisper";
+              name = "whisper-cpp";
               category = "whisper.cpp";
               help = "A port of OpenAI whisper model to C++. [whisper-cpp]";
               command = "${pkgs.openai-whisper-cpp}/bin/whisper-cpp";
