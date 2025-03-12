@@ -30,7 +30,6 @@
           p.psutil
           p.llama-cpp-python
         ]);
-
       in
           {
             devShells = {
