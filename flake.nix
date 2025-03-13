@@ -4,13 +4,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+
     llama-cpp.url = "github:ggerganov/llama.cpp";
   };
   outputs = {
     self,
+    nixpkgs,
     flake-utils,
     llama-cpp,
-    nixpkgs,
   }: 
     flake-utils.lib.eachDefaultSystem (system: 
       let
@@ -30,15 +31,32 @@
           p.psutil
           p.llama-cpp-python
         ]);
+        
+        infrastructure_packages = with pkgs; [
+          docker-compose
+          duckdb
+        ];
+
+        ai_packages = with pkgs; [
+          openai-whisper-cpp
+          ollama
+        ];
+
       in
           {
+
             devShells = {
               default = pkgs.mkShell {
                 buildInputs = [ 
                   scientific_python
                   llama-cpp.outputs.packages.${system}.default
-                  pkgs.openai-whisper-cpp
-                ];
+                ] 
+                ++ infrastructure_packages 
+                ++ ai_packages;
+
+                shellHook = ''
+                  export DIRENV_LOG_FORMAT=
+                '';
               };
             };
         }
