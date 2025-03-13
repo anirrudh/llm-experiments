@@ -56,6 +56,7 @@
 
                 shellHook = ''
                   export DIRENV_LOG_FORMAT=
+                  ${pkgs.pokemonsay}/bin/pokemonsay -N -t -d 151 "Let's cook."
                 '';
               };
             };
