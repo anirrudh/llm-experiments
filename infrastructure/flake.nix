@@ -31,15 +31,17 @@
       in
       {
         # Create a development shell with the name "migrations" for the current system
-        devShells.migrations = pkgs.mkShell {
-          buildInputs = [
-            migrations-pythonEnv
-          ];
+        devShells = {
+          migrations = pkgs.mkShell {
+            buildInputs = [
+              migrations-pythonEnv
+            ];
 
-          shellHook = ''
-            echo "Welcome to the migrations dev shell for ${system}!"
-            export PIP_CACHE_DIR=$XDG_CACHE_HOME/pip
-          '';
+            shellHook = ''
+              echo "Welcome to the migrations dev shell for ${system}!"
+              export PIP_CACHE_DIR=$XDG_CACHE_HOME/pip
+            '';
+          };
         };
       }
     );
