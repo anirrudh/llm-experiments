@@ -2,30 +2,38 @@
   description = "Development shell for migrations";
 
   inputs = {
-    # Nixpkgs input for the base environment
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    # Optional: Use flakes from GitHub or other sources
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
-    { self, nixpkgs, ... }:
-    nixpkgs.flakes.forEachSystem (
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      ...
+    }:
+    flake-utils.lib.eachDefaultSystem (
       system:
       let
         # Import nixpkgs for the current system
         pkgs = import nixpkgs {
           inherit system;
         };
+
+        migrations-pythonEnv = pkgs.python312.withPackages (
+          pythonPackages: with pythonPackages; [
+            alembic
+            psycopg
+            polars
+          ]
+        );
       in
       {
         # Create a development shell with the name "migrations" for the current system
-        devShells.${system}.migrations = pkgs.mkShell {
+        devShells.migrations = pkgs.mkShell {
           buildInputs = [
-            pkgs.python3
-            pkgs.python3Packages.pip
-            pkgs.python3Packages.alembic
-            pkgs.postgresql
-            pkgs.psql
+            migrations-pythonEnv
           ];
 
           shellHook = ''
